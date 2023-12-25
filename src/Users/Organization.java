@@ -1,6 +1,8 @@
 package Users;
 import java.util.*;
 
+import database.DataBase;
+
 public class Organization {
 	private String name;
 	private int amountOfMembers;
@@ -14,6 +16,7 @@ public class Organization {
 		this.members = new Vector <Student>();
 		members.add(president);
 		this.amountOfMembers = members.size();
+		DataBase.addOrg(this);
 	}
 	
 	public String getName() {

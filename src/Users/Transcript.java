@@ -2,6 +2,8 @@ package Users;
 import java.util.*;
 import java.util.Map.Entry;
 
+import database.DataBase;
+
 public class Transcript {
 	private double averageGPA;
 	private int totalCredits;
@@ -12,6 +14,7 @@ public class Transcript {
 		this.totalCredits = 0;
 									//yearOfStudy
 		this.semesters = new HashMap <Integer, HashMap <Course, MarkList>>();
+		DataBase.addTranscripts(this);
 	}
 	
 	public boolean addMark(Integer semester, Course course, double mark) {
@@ -55,6 +58,25 @@ public class Transcript {
 		for (int i = 0; i < semesters.size(); i++) {
 			for (Entry <Course, MarkList> cur: semesters.get(i).entrySet()) {
 				totalCredits += cur.getKey().getCredits();
+			}
+		}
+	}
+	
+	public HashMap <Integer, HashMap <Course, MarkList>> getSemesters() {
+		return semesters;
+	}
+	
+	public void showInfo() {
+		if (!semesters.isEmpty()) {
+			System.out.println("The transcript is Empty");
+		}
+		else {
+			for (int i = 0; i < semesters.size(); i++) {
+				System.out.println(i + "semster:");
+				for (Entry <Course, MarkList> cur: semesters.get(i).entrySet()) {
+					System.out.println(cur.getKey().getNameCourse() + ": " + cur.getValue().getMarks());
+					System.out.println("Total mark: " + cur.getValue().getTotalMark());
+				}
 			}
 		}
 	}

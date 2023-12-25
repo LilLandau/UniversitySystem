@@ -1,6 +1,8 @@
 package Users;
 import java.util.*;
 
+import database.DataBase;
+
 public class MarkList {
 	private Course course;
 	private Vector <Double> marks;
@@ -8,11 +10,24 @@ public class MarkList {
 	public MarkList() {
 		this.course = null;
 		this.marks = new Vector <Double>();
+		DataBase.addMarks(this);
 	}
 	
 	public MarkList(Course course) {
 		this.course = course;
 		this.marks = new Vector <Double>();
+	}
+	
+	public void showMarks() {
+		if (!marks.isEmpty()) {
+			for (Double mark: marks) {
+				System.out.print(mark + " ");
+			}
+			System.out.println();
+		}
+		else {
+			System.out.println("Mark List is empty");
+		}
 	}
 	
 	public void addMark(double mark) {
@@ -21,12 +36,21 @@ public class MarkList {
 	}
 	
 	
-	public Vector <Double> getMarks() {
+	public Vector <Double> getMarkList() {
 		return marks;
 	}
 	
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+	
+	public String getMarks() {
+		String s = "";
+		for (Double mark: marks) {
+			s += mark + " ";
+		}
+		
+		return s;
 	}
 	
 	public Course getCourse() {

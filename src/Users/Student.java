@@ -33,7 +33,7 @@ public class Student extends User {
 	}
 	
 	public void viewTranscript () {
-		
+		transcript.showInfo();
 	}
 	
 	
@@ -44,14 +44,20 @@ public class Student extends User {
 		}
 	}
 	
-	public void rateTeacher(Teacher t) {
-		//дописать
+	public void rateTeacher(Teacher t, double rate) throws NoAccessToCourseException, TeacherIsNotRatedException {
+		if (t.haveStudent(this)) {
+			t.setCntRate(t.getCntRate() + 1);
+			t.setRate((t.getRate() + rate) / t.getCntRate());
+		}
+		else {
+			throw new NoAccessToCourseException("You don't have access to this teacher");
+		}
 	}
 	
 	public void createOrganization(String organizationName) {
 		this.headOfOrganization = true;
 		Organization org = new Organization(organizationName, this);
-		//database.add(org)
+		//database.add(org) -- Добавил в конструктор
 	}
 	
 	public boolean isMemberOfOrganization(Organization o) {
@@ -64,6 +70,7 @@ public class Student extends User {
 	
 	public boolean registerForCourse() {
 		//write
+		return true;
 	}
 	
 	public Transcript getTranscript() {

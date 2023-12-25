@@ -1,6 +1,8 @@
 package Users;
 
-public class CourseFile {
+import java.io.Serializable;
+
+public class CourseFile implements Serializable {
 	private String fileName;
 	private Course course;
 	private Teacher owner;

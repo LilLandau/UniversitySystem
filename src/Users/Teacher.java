@@ -4,7 +4,8 @@ import java.util.*;
 public class Teacher extends Employee {
 	private Faculties faculty;
 	private HashMap <Course, Vector <Student>> courses;
-	private double rate;
+	private double rate = 0;
+	private int cntRate = 0;
 	
 	public Teacher(String firstname, String secondname, String ID, Date birthdate, String phoneNumber,
 			String login, String password, String email, Gender gender, Address address, Language language, double salary, 
@@ -17,7 +18,22 @@ public class Teacher extends Employee {
 	}
 	
 	public void viewStudents() {
-		//write
+		for (Map.Entry <Course, Vector <Student>> cur: courses.entrySet()) {
+			System.out.println(cur.getKey().getNameCourse());
+			int i = 0;
+			for (Student s: cur.getValue()) {
+				System.out.println(i + ". " + s.getID() + " " + s.getFirstname() + " " + s.getSecondname());
+				i++;
+			}
+		}
+	}
+	
+	public boolean haveStudent(Student s) {
+		for (Vector <Student> students: courses.values()) {
+			if (students.contains(s)) return true;
+		}
+		
+		return false;
 	}
 	
 	public void putMark(Student s, Course course, double mark) {
@@ -43,16 +59,29 @@ public class Teacher extends Employee {
 	public HashMap <Course, Vector <Student>> getCourses() {
 		return courses;
 	}
-	public double getRate() {
-		return rate;
+	
+	public double getRate() throws TeacherIsNotRatedException {
+		if (cntRate > 0) {
+			return rate;
+		}
+		else {
+			throw new TeacherIsNotRatedException("Teacher hasn't got any rate yet");
+		}
 	}
-	public void setRate(double rate) {
+	
+	protected void setRate(double rate) {
 		this.rate = rate;
+	}
+	
+	public int getCntRate() {
+		return cntRate;
+	}
+	public void setCntRate(int cntRate) {
+		this.cntRate = cntRate;
 	}
 	
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!super.equals(o)) return false;
 		if (o == null  || o.getClass() != this.getClass()) return false;
 		
 		Teacher other = (Teacher)o;

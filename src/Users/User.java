@@ -1,7 +1,14 @@
 package Users;
+import messenger.*;
+import news.News;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class User implements Comparable<User>{
+import database.DataBase;
+
+public class User implements Comparable<User>, Serializable{
+	private static final long serialVersionUID = -5166686727559956025L;
 	private String firstname;
 	private String secondname;
 	private String ID;
@@ -13,6 +20,9 @@ public class User implements Comparable<User>{
 	private Gender gender;
 	private Address address;
 	private Language language;
+	private Messenger messenger;
+	private News newsBoard;
+	private DataBase db;
 	
 	public User(String firstname, String secondname, String ID, Date birthdate, String phoneNumber,
 			String login, String password, String email, Gender gender, Address address, Language language) {
@@ -27,6 +37,8 @@ public class User implements Comparable<User>{
 		this.gender = gender;
 		this.address = address;
 		this.language = language;
+		this.newsBoard = News.getNewsBoard(); 
+		DataBase.addUser(this);
 	}
 	
 	public boolean changePassword(String newPassword) {
@@ -80,5 +92,25 @@ public class User implements Comparable<User>{
 	
 	public String getFirstname() { return firstname; }
 	public String getSecondname() { return secondname; }
-	//
+	public Date getBirthDate() { return birthdate; }
+	public String getPhoneNumber() { return phoneNumber; }
+	public String getLogin() { return login; }
+	public String getEmail() { return email; }
+	public Gender getGender() { return gender; }
+	public Address getAddress() { return address; }
+	public Language getLanguage() { return language; }
+	
+
+	public News getNewsBoard() {
+		return this.newsBoard;
+	}
+	public String toString() {
+		return this.firstname + " " +  this.secondname;
+	}
+	
+	public DataBase getDatabase() {
+		return db;
+	}
+	
+	
 }

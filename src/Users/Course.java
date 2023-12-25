@@ -1,7 +1,11 @@
 package Users;
+import java.io.Serializable;
 import java.util.*;
 
-public class Course {
+import database.DataBase;
+
+public class Course implements Serializable {
+	private static final long serialVersionUID = -8267169132804394841L;
 	private Teacher lecturer;
 	private Teacher practiceTeacher;
 	private String name;
@@ -9,6 +13,7 @@ public class Course {
 	private int credits;
 	private Vector <Course> prerequisites;
 	private Vector <CourseFile> courseFiles;
+	private Vector <Student> listOfStudents;
 	private HashMap <Student, Vector <Boolean>> attendance;
 	
 	public Course(Teacher lecturer, Teacher practiceTeacher, String name, String code, int credits) {
@@ -20,7 +25,48 @@ public class Course {
 		this.prerequisites = new Vector <Course>();
 		this.courseFiles = new Vector <CourseFile>();
 		this.attendance = new HashMap <Student, Vector <Boolean>>();
+		this.listOfStudents = new Vector <Student>();
+		DataBase.addCourse(this);
 	}
+	
+	public void addStudent(Student s) throws StudentAlreadyOnCourseException {
+		if (!listOfStudents.contains(s) && !attendance.containsKey(s)) {
+			listOfStudents.add(s);
+			attendance.put(s, new Vector <Boolean>());
+		}
+		else if (!listOfStudents.contains(s) && attendance.containsKey(s)) {
+			listOfStudents.add(s);
+		}
+		else if (listOfStudents.contains(s) && !attendance.containsKey(s)) {
+			attendance.put(s, new Vector <Boolean>());
+		}
+		else {
+			throw new StudentAlreadyOnCourseException("Student is already on course");
+		}
+	}
+	
+	public void removeStudent(Student s) throws StudentAlreadyOnCourseException {
+		if (listOfStudents.contains(s) && attendance.containsKey(s)) {
+			listOfStudents.remove(s);
+			attendance.remove(s);
+		}
+		else if (listOfStudents.contains(s) && !attendance.containsKey(s)) {
+			listOfStudents.remove(s);
+		}
+		else if (!listOfStudents.contains(s) && attendance.containsKey(s)) {
+			attendance.remove(s);
+		}
+		else {
+			throw new StudentAlreadyOnCourseException("Student is already NOT on course");
+		}
+	}
+	
+	public void setLecturer(Teacher t) {
+		this.lecturer = t;
+	}
+	public void setPracticeTeacher(Teacher t) {
+		this.practiceTeacher = t;
+	}	
 	
 	public void addFile(CourseFile file) {
 		courseFiles.add(file);
@@ -56,5 +102,18 @@ public class Course {
 	public String getCodeCourse() { return code; }
 	public Vector <Course> getPrerequisites() { return prerequisites; }
 	public Vector <CourseFile> getCourseFiles() { return courseFiles; }
+	public void addPrerequisites(Course course) {
+		this.prerequisites.add(course);
+	}
+	public HashMap <Student, Vector <Boolean>> getAttendance() {
+		return attendance;
+	}
+	public Vector <Student> getListOfStudents() {
+		return listOfStudents;
+	}
+	
+	public void showPrerequisitese() {
+		System.out.println(this.prerequisites);
+	}
 	
 }
