@@ -1,17 +1,23 @@
 package messenger;
 
 import Users.Employee;
+import database.DataBase;
 
 import java.io.Serializable;
 import java.util.Vector;
 
 public class Messenger implements Serializable{
-    private Vector<Chat> chats;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8060060516448946152L;
+	private Vector<Chat> chats;
     private Employee owner;
 
     public Messenger(Employee owner) {
         this.chats = new Vector<Chat>();
         this.owner = owner;
+        DataBase.addMessenger(this);
 
     }
 
@@ -40,6 +46,7 @@ public class Messenger implements Serializable{
     public void addChat(Chat chat) {
         chats.add(chat);
     }
+    
     public void deleteChat(Chat chat) {
         chats.remove(chat);
     }
@@ -56,7 +63,6 @@ public class Messenger implements Serializable{
     }
 
     public void deleteUserTo(String name, Employee other) {
-
         for(Chat chat:chats) {
             if(chat.getName() == name) {
                 if(owner == other) {
@@ -73,9 +79,8 @@ public class Messenger implements Serializable{
         }
     }
     public void showChat(String name) {
-
         for(Chat chat:chats) {
-            if(chat.getName() == name) {
+            if(chat.getName().equals(name)) {
                 System.out.println("\t\t" + chat.getName());
                 chat.showMessages();
                 return;

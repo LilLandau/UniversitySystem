@@ -3,6 +3,7 @@ package news;
 import java.io.Serializable;
 import java.util.Date;
 
+import Notifications.Notifications;
 import Users.Employee;
 
 public class NewsBlank implements Serializable{
@@ -82,5 +83,16 @@ public class NewsBlank implements Serializable{
 		this.topic = topic;
 	}
 	
+	
+	public int hashCode() {
+		return this.tittle.hashCode() + this.author.hashCode() + this.date.hashCode();
+ 	}
+	
+	public boolean equlas(Object o) {
+		if ( this == o ) return true;
+		if ( o == null || this.getClass() != o.getClass()) return false;
+		NewsBlank newsBlank = (NewsBlank) o;
+		return newsBlank.tittle == this.tittle && newsBlank.author == this.author && newsBlank.date.equals(this.date);	
+	}
 	
 }

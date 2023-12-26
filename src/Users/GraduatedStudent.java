@@ -1,7 +1,16 @@
 package Users;
 import java.util.*;
+/**
+ * @author Danial
+ * This class represents graduated students (masters or ph.ds).
+ * By default every graduated student is researcher
+ * */
 
 public class GraduatedStudent extends Student {
+	/**
+	 * The fields are researcher, which gives us a researcher functionality,
+	 * degree of student and his supervisor
+	 * */
 	private ResearcherDecorator researcher;
 	private Degree degree;
 	private ResearcherDecorator supervisor;
@@ -28,12 +37,25 @@ public class GraduatedStudent extends Student {
 		}
 	}
 	
+	/**
+	 * @param research paper
+	 * @throws ResearchPaperAlreadyAddedException if paper is already in list of works
+	 * This method adds paper to all works of student
+	*/
 	public void addPaper(ResearchPaper p) throws ResearchPaperAlreadyAddedException {
 		researcher.addPaper(p);
 	}
+	/**
+	 * @param research paper
+	 * @throws ResearchPaperAlreadyAddedException if paper is already removed from works of student
+	 * This method removes paper from all works of student
+	*/
 	public void removePaper(ResearchPaper p) throws ResearchPaperAlreadyAddedException {
 		researcher.removePaper(p);
 	}
+	/**
+	 * This method prints all papers of student
+	*/
 	public void printPapers() {
 		researcher.printPapers();
 	} 
@@ -41,6 +63,10 @@ public class GraduatedStudent extends Student {
 		return researcher.getPapers();
 	}
 	
+	/**
+	 * @return amount of all citations of student's works
+	 * This method returns the amount of citations
+	*/
 	public int getAmountOfCitations() {
 		return researcher.getAmountOfCitations();
 	}

@@ -2,8 +2,15 @@ package Users;
 import java.util.*;
 
 import database.DataBase;
+/**
+ * @author Danial
+ * This class represents mark list for some student. Used in Transcript
+*/
 
 public class MarkList {
+	/**
+	 * Fields of class represents course for which mark list is made for and vector of marks
+	*/
 	private Course course;
 	private Vector <Double> marks;
 	
@@ -18,6 +25,9 @@ public class MarkList {
 		this.marks = new Vector <Double>();
 	}
 	
+	/**
+	 * This method shows marks
+	*/
 	public void showMarks() {
 		if (!marks.isEmpty()) {
 			for (Double mark: marks) {
@@ -30,6 +40,10 @@ public class MarkList {
 		}
 	}
 	
+	/**
+	 * This method is adding mark to mark list
+	 * @param mark
+	*/
 	public void addMark(double mark) {
 		mark = (Double)mark;
 		marks.add(mark);

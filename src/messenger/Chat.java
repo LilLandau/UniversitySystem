@@ -1,18 +1,24 @@
 package messenger;
 
-import Users.User;
+import Users.Employee;
+import database.DataBase;
 
 import java.io.Serializable;
 import java.util.Vector;
 
 public class Chat implements Serializable{
-    private Vector<User> members = new Vector<User>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1138645952737596214L;
+	private Vector<Employee> members = new Vector<Employee>();
     private Vector<Message> messages = new Vector<Message>();
     private String name;
-    private User owner;
-    public Chat(User other, String name, User owner) {
+    private Employee owner;
+    public Chat(Employee other, String name, Employee owner) {
         this.members.add(other);
         this.name = name;
+
     }
 
 
@@ -26,7 +32,7 @@ public class Chat implements Serializable{
         }
     }
 
-    public boolean add(User other) {
+    public boolean add(Employee other) {
         if(members.contains(other)) {
             System.out.println("Он уже в чате");
             return false;
@@ -36,7 +42,7 @@ public class Chat implements Serializable{
         return true;
     }
 
-    public boolean delete(User other) {
+    public boolean delete(Employee other) {
         return members.remove(other);
     }
 
@@ -49,22 +55,22 @@ public class Chat implements Serializable{
     }
 
 
-    public User getOwner() {
+    public Employee getOwner() {
         return owner;
     }
 
 
-    public void setOwner(User owner) {
+    public void setOwner(Employee owner) {
         this.owner = owner;
     }
 
 
-    public Vector<User> getMembers() {
+    public Vector<Employee> getMembers() {
         return members;
     }
 
 
-    public void setMembers(Vector<User> members) {
+    public void setMembers(Vector<Employee> members) {
         this.members = members;
     }
 

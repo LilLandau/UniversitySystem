@@ -1,7 +1,14 @@
 package Users;
 import java.util.*;
+/**
+ * @author Danial
+ * This class is used in ResearcherDecorator & ResearchProject clasess
+ * Represents a research papers*/
 
 public class ResearchPaper {
+	/**
+	 * These fields making research documents
+	*/
 	private String title;
 	private ResearcherDecorator author;
 	private String doi;
@@ -18,6 +25,9 @@ public class ResearchPaper {
 		this.doi = author + "/" + publicationDate.toInstant().toString().substring(10);
 	}
 	
+	/**
+	 * This method is making citation of other work
+	*/
 	public void makeCitation(ResearchPaper rp) {
 		if (!this.getAuthor().equals(rp)) {
 			rp.increaseCitationIndex();
@@ -28,6 +38,10 @@ public class ResearchPaper {
 		++citationIndex;
 	}
 	
+	/**
+	 * This method publishes a research paper
+	 * @throwsh PaperAlreadyPublishedException if paper is already published
+	*/
 	public void publish() throws PaperAlreadyPublishedException {
 		if (!state.equals(State.PUBLISHED)) {
 			state = State.PUBLISHED;
@@ -37,6 +51,9 @@ public class ResearchPaper {
 		}
 	}
 	
+	/**
+	 * This method freezing the writing of the paper
+	*/
 	public void freeze() {
 		state = State.FREEZED;
 	}

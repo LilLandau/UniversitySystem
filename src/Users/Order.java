@@ -1,8 +1,14 @@
 package Users;
-
 import java.util.Objects;
+/**
+ * @author Danial
+ * This class is used to create orders to TechSupportSpecialist
+*/
 
 public class Order {
+	/**
+	 * These fields are used to describe order
+	*/
 	private int orderID;
 	private String description;
 	private Status orderStatus;

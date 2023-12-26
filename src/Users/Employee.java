@@ -7,7 +7,17 @@ import news.News;
 import news.NewsBlank;
 import news.TopicOfNews;
 
+/**
+ * @author Danial
+ * This class was created to unite university employees. 
+ * Summarizes their functionality
+*/
+
 public class Employee extends User {
+	/**
+	 * Fields are representing salary of employee
+	 * and messenger to get contact with other employees
+	*/
 	private static final long serialVersionUID = -8206113627892566318L;
 	private double salary;
 	private Messenger messenger;
@@ -37,10 +47,18 @@ public class Employee extends User {
 		return Objects.hash(super.hashCode(), salary);
 	}
 	
+	/**
+	 * This method is used to create news
+	 * @param title of news, text of news and its topic
+	*/
 	public void makeNews(String tittle, String fullTxt, TopicOfNews topic) {
 		News.makePublication(new NewsBlank(tittle, fullTxt, this, topic));
 	}
 	
+	/**
+	 * This method is used to delete news
+	 * @param title of news
+	*/
 	public void deletePublication(String tittle) {
 		News.deletePublication(tittle, this);
 	}

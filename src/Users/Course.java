@@ -4,7 +4,16 @@ import java.util.*;
 
 import database.DataBase;
 
-public class Course implements Serializable {
+/**
+ * @author Danial
+ * This class contains all information about some
+ * courses taken at the university*/
+public class Course implements Serializable{
+	/**
+	 * Fields are representing all information about course
+	 * including prerequisites, course files, list of students
+	 * and attendance calendar
+	 */
 	private static final long serialVersionUID = -8267169132804394841L;
 	private Teacher lecturer;
 	private Teacher practiceTeacher;
@@ -25,10 +34,15 @@ public class Course implements Serializable {
 		this.prerequisites = new Vector <Course>();
 		this.courseFiles = new Vector <CourseFile>();
 		this.attendance = new HashMap <Student, Vector <Boolean>>();
-		this.listOfStudents = new Vector <Student>();
 		DataBase.addCourse(this);
 	}
 	
+	/**
+	 * This method adds student to course. Used by manager
+	 * @param student who enrolls in the course
+	 * @throws StudentAlreadyOnCourseException if student is already on course
+	 * 
+	 */
 	public void addStudent(Student s) throws StudentAlreadyOnCourseException {
 		if (!listOfStudents.contains(s) && !attendance.containsKey(s)) {
 			listOfStudents.add(s);
@@ -45,6 +59,12 @@ public class Course implements Serializable {
 		}
 	}
 	
+	/**
+	 * This method removes student from course. Used by manager
+	 * @param student who kicked from course
+	 * @throws StudentAlreadyOnCourseException if student is already removed from course
+	 * 
+	 */
 	public void removeStudent(Student s) throws StudentAlreadyOnCourseException {
 		if (listOfStudents.contains(s) && attendance.containsKey(s)) {
 			listOfStudents.remove(s);
@@ -61,17 +81,18 @@ public class Course implements Serializable {
 		}
 	}
 	
-	public void setLecturer(Teacher t) {
-		this.lecturer = t;
-	}
-	public void setPracticeTeacher(Teacher t) {
-		this.practiceTeacher = t;
-	}	
-	
+	/**
+	 * This method adds file to course. Used by Teacher
+	 * @param file for adding
+	 */
 	public void addFile(CourseFile file) {
 		courseFiles.add(file);
 	}
 	
+	/**
+	 * This method removes file from course. Used by Teacher
+	 * @param file for removing
+	 */
 	public boolean removeFile(CourseFile file) {
 		if (courseFiles.contains(file)) {
 			courseFiles.remove(file);
@@ -80,6 +101,9 @@ public class Course implements Serializable {
 		return false;
 	}
 	
+	/**
+	 * This method shows attendance statistics about every student
+	 */
 	public void showAttendance() {
 		for (Map.Entry<Student, Vector <Boolean>> entry: attendance.entrySet()) {
 			Student student = entry.getKey();
@@ -94,6 +118,13 @@ public class Course implements Serializable {
 					": " + countDate);
 		}
 	}
+
+	public void setLecturer(Teacher t) {
+		this.lecturer = t;
+	}
+	public void setPracticeTeacher(Teacher t) {
+		this.practiceTeacher = t;
+	}	
 	
 	public int getCredits() { return credits; }
 	public Teacher getLecturer() { return lecturer; }
@@ -112,6 +143,9 @@ public class Course implements Serializable {
 		return listOfStudents;
 	}
 	
+	/**
+	 * This method shows prerequisites for current course
+	 */
 	public void showPrerequisitese() {
 		System.out.println(this.prerequisites);
 	}

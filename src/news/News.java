@@ -29,6 +29,8 @@ public class News implements Serializable{
 		}
 	}
 	public static void showPublications() {
+		System.out.println("https://wsp.kbtu.kz/newsboard");
+		System.out.println("\n\n\t  NEWS BOARD \n\n");
 		messages.sort(new ComparatorByTopic());
 		for(NewsBlank message: messages) {
 			System.out.println(message);

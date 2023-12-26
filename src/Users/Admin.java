@@ -1,10 +1,14 @@
 package Users;
-
 import java.util.Date;
 import java.util.Objects;
 
 import database.DataBase;
 
+/**
+ * @author Danial
+ * This class is represented admin
+ * of University system
+ */
 public class Admin extends Employee {
 
 	public Admin(String firstname, String secondname, String ID, Date birthdate, String phoneNumber, String login,
@@ -12,14 +16,25 @@ public class Admin extends Employee {
 		super(firstname, secondname, ID, birthdate, phoneNumber, login, password, email, gender, address, language, salary);
 	}
 	
+	/**
+	 * This method opens registration for students
+	 */
 	public void openRegistration() {
-		//to write
+		DataBase.setRegistration(true);
 	}
 	
+	/**
+	 * This method closes registration for students
+	 */
 	public void closeRegistration() {
-		//to write
+		DataBase.setRegistration(false);
 	}
 	
+	/**
+	 * @param user of the system
+	 * @throws UserAlreadyExistsException if user is already in system
+	 * This method adds new User to system
+	 */
 	public void addUser(User u) throws UserAlreadyExistsException {
 		if (!DataBase.getUsers().contains(u)) {
 			DataBase.getUsers().add(u);
@@ -29,6 +44,11 @@ public class Admin extends Employee {
 		}
 	}
 	
+	/**
+	 * @param user of the system
+	 * @throws UserAlreadyExistsException if user is already removed from system
+	 * This method removes User from system
+	 */
 	public void removeUser(User u) throws UserAlreadyExistsException {
 		if (DataBase.getUsers().contains(u)) {
 			DataBase.getUsers().remove(u);
@@ -38,8 +58,12 @@ public class Admin extends Employee {
 		}
 	}
 	
+	/**
+	 * @return returns the logs of system
+	 * This method is used to get logs 
+	 */
 	public String seeLogs() {
-		//to write
+		return "WRITE";
 	}
 	
 	public boolean equals(Object o) {

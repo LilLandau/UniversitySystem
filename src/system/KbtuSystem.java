@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import database.DataBase;
-import Users.User;
+import Users.*;
 
 public class KbtuSystem {
 	private User user;
 	private String login = "";
 	private String password = "";
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	private DataBase db = DataBase.getDataBase();
 	public KbtuSystem() {
 		
 	}
@@ -24,7 +23,6 @@ public class KbtuSystem {
 			System.out.println(String.format("Login: %s (1)", this.login));
 			System.out.println(String.format("Password: %s (2)\n", this.password));
 			System.out.println("Sign in(3)\n");
-			System.out.print("\nI do not remember my login or password(4)\n");
 			
 
 			chooseOfUser = reader.read() - 48;
@@ -39,62 +37,50 @@ public class KbtuSystem {
 				this.password = reader.readLine();
 				System.out.print(this.login);
 			}else if(chooseOfUser == 3) {
-				if(this.authenticateUser(this.login, password)) {
+				if(this.authenticateUser(this.login, this.password)) {
 					this.mainPage(this.chooseUser(login));
 				}else{
-
 			    	this.login = "";
 			    	this.password = "";
 					continue;
-				}
-			}else if(chooseOfUser == 4) {
-				String email = "";
-				System.out.print("email: ");
-				reader.readLine();
-				email = reader.readLine();
-				if(this.checkEmail(email)) {
-	    			System.out.println("\n\nWe send message to your email!");
-				}else {
-	    			System.out.println("\n\nIncorrect email!");
 				}
 			}
 		}
 	}
 	
-	public void mainPage(User user) {
+	public void mainPage(User user) throws IOException {
+		System.out.println(user);
+
 		if(user == null) { 
 			return;
 		}
-		this.user = user; 
+		this.user = user;
+
+		user.mainPage();	
 	}
 	
 	
-	
+	public void StudentMainPage(Student stu) {
+		
+	}
 	
 	
 	
 	// for autho
     private boolean authenticateUser(String username, String password) {
     	for(User u: DataBase.getUsers()) {
-    		if(u.getLogin() == username) {
+    		if(u.getLogin().equals(username) && u.getPassword().equals(password)) {
     			return true;
     		}
     	}
     	return false;
     }
     
-    private boolean checkEmail(String email) {
-    	for(User u: db.getUsers()) {
-    		if(u.getEmail() == email) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
     
     private User chooseUser(String name) {
-    	for(User u: db.getUsers()) {
-    		if(u.getFirstname() == name) {
+    	for(User u: DataBase.getUsers()) {
+    		System.out.println(u);
+    		if(u.getLogin().equals(name)) {
     			return u;
     		}
     	}

@@ -1,8 +1,17 @@
 package Users;
-
 import java.io.Serializable;
 
-public class Address implements Serializable{
+/**
+ * @author Danial
+ * This class is made for being used as
+ * field of the User class and for his
+ * inheriting classes
+ */
+public class Address implements Serializable {
+	/**
+	 * Fields of Address represent a
+	 * description of the address
+	 */
 	private String country;
 	private String city;
 	private String street;
